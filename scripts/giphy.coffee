@@ -6,7 +6,7 @@ giphy =
   api_url: 'http://api.giphy.com/v1'
     
   
-  search: (msg, q, callback) ->
+  search: (msg, q) ->
     endpoint = '/gifs/search'
     url = "#{giphy.api_url}#{endpoint}"
     msg.http(url)
@@ -14,8 +14,8 @@ giphy =
         api_key: giphy.api_key
         q: q
       .get() (err, res, body) ->
-        res = JSON.parse(body)
-        data = res?.data || []
+        parseBody = JSON.parse(body)
+        data = res?.data ? []
         if data.length
           img_obj = msg.random data
           msg.send(img_obj.images.original.url)
@@ -23,5 +23,5 @@ giphy =
           msg.send "No results found for #{q}"
           
 module.exports = (robot) ->
-  robot.hear /^giphy (.*)$/i, (msg) ->
+  robot.respond /^giphy (.*)$/i, (msg) ->
    giphy.search msg, msg.match[1]
