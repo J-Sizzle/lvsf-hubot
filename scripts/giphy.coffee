@@ -1,5 +1,5 @@
 # Commands:
-#   giphy <term> - Returns a randomly selected gif from a search of the giphy api for <term>
+#   hubot giphy <term> - Returns a randomly selected gif from a search of the giphy api for <term>
     
 giphy =
   api_key: process.env.HUBOT_GIPHY_API_KEY
