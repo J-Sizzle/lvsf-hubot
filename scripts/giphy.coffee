@@ -15,7 +15,7 @@ giphy =
         q: q
       .get() (err, res, body) ->
         parseBody = JSON.parse(body)
-        data = res?.data ? []
+        data = parseBody?.data ? []
         if data.length
           img_obj = msg.random data
           msg.send(img_obj.images.original.url)
@@ -23,5 +23,5 @@ giphy =
           msg.send "No results found for #{q}"
           
 module.exports = (robot) ->
-  robot.respond /^giphy (.*)$/i, (msg) ->
-   giphy.search msg, msg.match[1]
+  robot.respond /giphy (.*)$/i, (msg) ->
+    giphy.search msg, msg.match[1]
